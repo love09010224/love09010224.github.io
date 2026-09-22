@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { profile } from '../data/portfolio';
+---
+<Layout title="Links" current="Links" description="Seojin An (love09010224)의 GitHub, Velog, CTFtime과 Discord. 코드와 기술 기록, 연락처를 한곳에서 확인하세요.">
+  <div class="page-intro"><p class="eyebrow">Find me elsewhere</p><h1>Let’s connect<span class="accent-dot">.</span></h1><p>코드와 기록, 그리고 새로운 이야기.</p></div>
+  <div class="links-grid">
+    <a class="social-card" href={profile.github} target="_blank" rel="noopener noreferrer"><span class="social-icon"><Icon name="github" size={27} /></span><span class="social-action" aria-hidden="true"><Icon name="external" size={23} /></span><h2>GitHub</h2><p class="social-handle">{profile.handle}</p><p class="social-description">코드와 프로젝트</p><span class="sr-only">새 탭에서 열기</span></a>
+    <a class="social-card" href={profile.velog} target="_blank" rel="noopener noreferrer"><span class="social-icon"><Icon name="book" size={27} /></span><span class="social-action" aria-hidden="true"><Icon name="external" size={23} /></span><h2>Velog</h2><p class="social-handle">{profile.handle}</p><p class="social-description">공부하고 발견한 것들의 기록</p><span class="sr-only">새 탭에서 열기</span></a>
+    <a class="social-card" href={profile.ctftime} target="_blank" rel="noopener noreferrer"><span class="social-icon"><Icon name="flag" size={27} /></span><span class="social-action" aria-hidden="true"><Icon name="external" size={23} /></span><h2>CTFtime</h2><p class="social-handle">{profile.handle}</p><p class="social-description">CTF 프로필과 팀 활동</p><span class="sr-only">새 탭에서 열기</span></a>
+    <div class="social-card discord-card"><span class="social-icon"><Icon name="message" size={27} /></span><button class="copy-button social-action" type="button" data-copy={profile.discord} aria-label="Discord 아이디 복사"><Icon name="copy" size={21} /></button><h2>Discord</h2><p class="social-handle" id="discord-handle">{profile.discord}</p><p class="social-description" id="copy-status" role="status" aria-live="polite">아이디를 복사해 편하게 연락해 주세요.</p></div>
+  </div>
+  <div class="links-signoff"><Icon name="spark" size={26} /><p>좋은 이야기는 작은 인사에서 시작되니까요.</p><span>See you around!</span></div>
+</Layout>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-copy]');
+  const status = document.querySelector<HTMLElement>('#copy-status');
+  let resetTimer: ReturnType<typeof setTimeout>;
+  button?.addEventListener('click', async () => {
+    if (!status || !button.dataset.copy) return;
+    clearTimeout(resetTimer);
+    try {
+      await navigator.clipboard.writeText(button.dataset.copy);
+      status.textContent = '복사했어요. Discord에서 만나요!';
+      button.classList.add('is-copied');
+      button.setAttribute('aria-label', 'Discord 아이디 복사 완료');
+      resetTimer = setTimeout(() => {
+        status.textContent = '아이디를 복사해 편하게 연락해 주세요.';
+        button.classList.remove('is-copied');
+        button.setAttribute('aria-label', 'Discord 아이디 복사');
+      }, 3500);
+    } catch {
+      status.textContent = '자동 복사가 안 되네요. 위 아이디를 직접 복사해 주세요.';
+    }
+  });
+</script>

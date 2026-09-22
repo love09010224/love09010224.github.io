@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { work, activities } from '../data/portfolio';
+---
+<Layout title="Experience" current="Experience" description="Seojin An의 근로 및 활동 이력. 버비컴퍼니, 서울시립대학교 SHA와 Doorlock, CTF 팀 따따에서의 기록입니다.">
+  <div class="page-intro"><p class="eyebrow">Work & community</p><h1>Experience<span class="accent-dot">.</span></h1><p>함께 배우고 성장하는 시간.</p></div>
+  <section class="experience-section" aria-labelledby="work-title">
+    <SectionHeading number="01" title="Work" id="work-title" subtitle="근로" />
+    <ol class="timeline" role="list">
+      {work.map((item) => <li><span class="timeline-icon" aria-hidden="true"><Icon name="briefcase" size={20} /></span><div class="timeline-content"><div class="timeline-meta"><span class="date-range">{item.start} — {item.end || '현재'}</span>{!item.end && <span class="status-badge">재직 중</span>}</div><h3>{item.organization}</h3>{item.role && <p class="work-role">{item.role}</p>}{item.description && <p>{item.description}</p>}</div></li>)}
+    </ol>
+  </section>
+  <section class="experience-section" aria-labelledby="activities-title">
+    <SectionHeading number="02" title="Activities" id="activities-title" subtitle="동아리와 팀 활동" />
+    <ol class="timeline" role="list">
+      {activities.map((item) => <li><span class="timeline-icon" aria-hidden="true"><Icon name="users" size={20} /></span><div class="timeline-content"><div class="timeline-meta"><span class="date-range">{item.start} — {item.end || '현재'}</span>{!item.end && <span class="status-badge">활동 중</span>}</div><h3>{item.organization}</h3><p class="activity-type">{item.type}</p></div></li>)}
+    </ol>
+  </section>
+  <aside class="page-note"><Icon name="spark" size={24} /><p>함께한 대회와 프로젝트는 <a href="/achievements/">Achievements <Icon name="arrow" size={16} /></a>에 모아두었습니다.</p></aside>
+</Layout>

@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ResultList from '../components/ResultList.astro';
+import { results, vulnerabilities, projects, profile } from '../data/portfolio';
+const featured = results.filter((item) => item.featured);
+const other = results.filter((item) => !item.featured);
+---
+<Layout title="Achievements" current="Achievements" description="Seojin An의 수상 및 CTF 실적, 공개 CVE와 프로젝트. ACTF, TJCTF, SCTF, Codegate, DEF CON 등 대회 기록을 소개합니다.">
+  <div class="page-intro">
+    <p class="eyebrow">Competitions & research</p>
+    <h1>Achievements<span class="accent-dot">.</span></h1>
+    <p>도전하고, 발견하고, 함께 만들어 온 기록.</p>
+    <nav class="section-nav" aria-label="Achievements 섹션"><a href="#awards">CTF results <span>{results.length}</span></a><a href="#cves">CVE list <span>{vulnerabilities.length}</span></a><a href="#projects">Projects <span>{projects.length}</span></a></nav>
+  </div>
+
+  <section class="page-section" id="awards" aria-labelledby="awards-title">
+    <SectionHeading number="01" title="Awards & CTF results" id="awards-title"><span class="section-meta">SELECTED · 2026</span></SectionHeading>
+    <ResultList items={featured} />
+    <details class="more-results">
+      <summary><span>More CTF results <span class="count-badge">{other.length}</span></span><Icon name="chevron" size={18} /></summary>
+      <ResultList items={other} />
+    </details>
+    <a class="text-link section-after-link" href={profile.ctftime} target="_blank" rel="noopener noreferrer">CTFtime profile <Icon name="external" size={17} /><span class="sr-only"> (새 탭)</span></a>
+  </section>
+
+  <section class="page-section" id="cves" aria-labelledby="cves-title">
+    <SectionHeading number="02" title="CVE list" id="cves-title"><span class="section-meta">PUBLIC DISCLOSURES</span></SectionHeading>
+    <div class="cve-list">
+      {vulnerabilities.map((cve) => <article class="cve-card"><div class="cve-card-meta"><span class="cve-id">{cve.id}</span><span class="tag">{cve.product}</span></div><h3>{cve.title}</h3><p>{cve.summary}</p><div class="cve-links"><a href={cve.advisory} class="text-link" target="_blank" rel="noopener noreferrer">Security advisory <Icon name="external" size={16} /><span class="sr-only"> (새 탭)</span></a><a href={cve.url} class="text-link cve-record" target="_blank" rel="noopener noreferrer">CVE record <Icon name="external" size={16} /><span class="sr-only"> (새 탭)</span></a></div></article>)}
+    </div>
+  </section>
+
+  <section class="page-section" id="projects" aria-labelledby="projects-title">
+    <SectionHeading number="03" title="Projects" id="projects-title" />
+    {projects.map((project) => <article class="project-card"><div class="project-art" aria-hidden="true"><Icon name="lock" size={40} /><span>SHA <i>&</i><br />Doorlock</span><span class="project-art-caption">ESCAPE ROOM / CTF</span></div><div class="project-content"><span class="eyebrow">Project · {project.year}</span><h3>{project.name}</h3><p class="project-subtitle">{project.subtitle}</p>{project.role && <p class="project-role">{project.role}</p>}{project.description && <p>{project.description}</p>}{project.url && <a class="text-link" href={project.url} target="_blank" rel="noopener noreferrer">프로젝트 보기 <Icon name="external" /></a>}</div></article>)}
+  </section>
+</Layout>

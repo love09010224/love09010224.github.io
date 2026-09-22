@@ -1,0 +1,73 @@
+---
+import { getImage } from 'astro:assets';
+import portrait from '../assets/portrait.png';
+import Icon from '../components/Icon.astro';
+import { profile } from '../data/portfolio';
+import '../styles/global.css';
+
+interface Props { title: string; description: string; current?: string; noindex?: boolean }
+const { title, description, current = '', noindex = false } = Astro.props;
+const navigation = [
+  { label: 'Home', href: '/' },
+  { label: 'Achievements', href: '/achievements/' },
+  { label: 'Experience', href: '/experience/' },
+  { label: 'Links', href: '/links/' },
+];
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const social = await getImage({ src: portrait, width: 600, format: 'png' });
+const socialUrl = new URL(social.src, Astro.site);
+const fullTitle = current === 'Home' ? 'Seojin An — Vulnerability Researcher' : `${title} — Seojin An`;
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f3eee9" />
+    <meta name="color-scheme" content="light" />
+    <meta name="generator" content={Astro.generator} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:site_name" content="Seojin An · love09010224" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialUrl} />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content={String(social.attributes.height)} />
+    <meta property="og:image:alt" content="Seojin An의 웃는 캐릭터 초상" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialUrl} />
+    <title>{fullTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="site-header shell">
+      <a class="brand" href="/" aria-label="love09010224, Home">
+        <span class="brand-symbol" aria-hidden="true">s<span>.</span></span>
+        <span>{profile.handle}</span>
+      </a>
+      <nav class="main-nav" aria-label="메인 메뉴">
+        {navigation.map(({ label, href }) => <a href={href} aria-current={current === label ? 'page' : undefined}>{label}</a>)}
+      </nav>
+    </header>
+    <main id="main" class="shell" tabindex="-1"><slot /></main>
+    <footer class="site-footer shell">
+      <div class="footer-top">
+        <a href="/" class="footer-signature" aria-label="Seojin An, Home">Seojin An<span>.</span></a>
+        <span class="footer-note">A little curiosity, every day.</span>
+        <a class="text-link" href="/links/">Say hello <Icon name="external" size={17} /></a>
+      </div>
+      <div class="footer-bottom">
+        <span>© {new Date().getFullYear()} Seojin An</span>
+        <span class="footer-links"><a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (새 탭)</span></a><span aria-hidden="true">/</span><a href={profile.velog} target="_blank" rel="noopener noreferrer">Velog<span class="sr-only"> (새 탭)</span></a></span>
+      </div>
+    </footer>
+  </body>
+</html>

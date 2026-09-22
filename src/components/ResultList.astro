@@ -1,0 +1,17 @@
+---
+import type { CtfResult } from '../data/portfolio';
+interface Props { items: CtfResult[] }
+const { items } = Astro.props;
+const ordinal = (n: number) => n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th';
+---
+<ul class="result-list" role="list">
+  {items.map((result) => (
+    <li class="result-row" data-result>
+      <span class:list={['result-place', { 'is-podium': result.place <= 3 }]} aria-label={`${result.place}위`}>
+        <span>{String(result.place).padStart(2, '0')}</span><sup>{ordinal(result.place)}</sup>
+      </span>
+      <div class="result-event"><h3>{result.event}</h3><p>{result.division ? `${result.division} · ` : ''}{result.team}</p></div>
+      {result.year && <span class="result-year">{result.year}</span>}
+    </li>
+  ))}
+</ul>

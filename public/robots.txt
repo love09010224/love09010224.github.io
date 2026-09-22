@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://love09010224.github.io/sitemap.xml
