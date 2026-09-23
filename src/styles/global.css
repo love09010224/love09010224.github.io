@@ -57,13 +57,12 @@ main:focus { outline: none; }
 
 /* Home */
 .hero { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 62px; padding: 75px 0 73px; }
-.hero-copy { animation: enter .65s ease-out both; }
 .hero h1 { font-size: clamp(60px, 6.15vw, 84px); font-weight: 550; line-height: 1.13; letter-spacing: -.06em; margin: 24px 0 23px; }
 .hero-greeting { color: var(--gray); font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 400; letter-spacing: -.055em; font-size: .85em; }
 .hero-description { font-size: 17px; font-weight: 400; line-height: 1.9; letter-spacing: -.04em; }
 .hero-affiliation { color: var(--muted); font-size: 12px; margin-top: 15px; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; margin-top: 29px; }
-.portrait { margin: 0; width: 100%; max-width: 380px; justify-self: center; animation: enter .8s .08s ease-out both; }
+.portrait { margin: 0; width: 100%; max-width: 380px; justify-self: center; }
 .portrait-art { position: relative; }
 .portrait-art::before { content: ''; position: absolute; inset: -10px 8px 13px -10px; border: 1px solid var(--beige); border-radius: 49% 49% 10px 10px; transform: rotate(-5deg); z-index: -1; }
 .portrait-frame { overflow: hidden; border-radius: 49% 49% 10px 10px; background: #eae5df; }
@@ -228,7 +227,6 @@ a.social-card:hover { background: var(--surface); border-color: var(--taupe); tr
 .not-found h1 { font-size: 24px; letter-spacing: -.04em; }
 .not-found-copy > p:not(.eyebrow) { margin-top: 16px; color: var(--muted); font-size: 14px; }
 .not-found-copy > .button { margin-top: 30px; }
-@keyframes enter { from { transform: translateY(12px); } to { transform: translateY(0); } }
 
 @media (min-width: 1440px) { .hero { gap: 92px; } }
 @media (max-width: 1000px) {
@@ -405,4 +403,8 @@ a.social-card:hover { background: var(--surface); border-color: var(--taupe); tr
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  [data-reveal] { opacity: 1 !important; translate: none !important; }
+}
+@media print {
+  [data-reveal] { opacity: 1 !important; translate: none !important; }
 }

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { profile, skills, projects, work } from '../src/data/portfolio';
 
@@ -8,6 +8,14 @@ const pages = [
   { path: '/experience/', label: 'Experience', heading: 'Experience' },
   { path: '/links/', label: 'Links', heading: 'Let’s connect' },
 ];
+
+async function settleMotion(page: Page) {
+  // Measure the final reading state, not an intermediate fade's color contrast.
+  await page.evaluate(async () => {
+    await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+    await Promise.all(document.getAnimations().map((animation) => animation.finished.catch(() => undefined)));
+  });
+}
 
 for (const route of pages) {
   test(`${route.label}: content, accessibility and visual check`, async ({ page }, testInfo) => {
@@ -33,6 +41,7 @@ for (const route of pages) {
     await expect(page.locator('body')).not.toContainText(/Lorem ipsum|undefined|TODO|준비 중/);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     expect(errors).toEqual([]);
+    await settleMotion(page);
     const accessibility = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
     expect(accessibility.violations.map(({ id, nodes }) => ({ id, nodes: nodes.map(({ target, failureSummary }) => ({ target, failureSummary })) }))).toEqual([]);
     await page.screenshot({ path: testInfo.outputPath('page.png'), fullPage: true, animations: 'disabled', scale: 'css' });
@@ -96,6 +105,7 @@ test('all 13 CTF results, two CVEs and the project are included', async ({ page 
   await expect(page.locator('.project-content h3')).toHaveText(projects.map((project) => project.name));
   await expect(page.locator('.project-subtitle')).toHaveText(projects.map((project) => project.subtitle));
   await expect(page.locator('.project-role')).toHaveText(projects.map((project) => project.role).filter(Boolean));
+  await settleMotion(page);
   const accessibility = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
   expect(accessibility.violations.map(({ id, nodes }) => ({ id, nodes: nodes.map(({ target, failureSummary }) => ({ target, failureSummary })) }))).toEqual([]);
 });
@@ -181,6 +191,7 @@ test('a custom 404 page is present', async ({ page }, testInfo) => {
   await expect(image).toBeVisible();
   expect(await image.evaluate((node) => (node as HTMLImageElement).complete && (node as HTMLImageElement).naturalWidth > 0)).toBe(true);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await settleMotion(page);
   const accessibility = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
   expect(accessibility.violations.map(({ id }) => id)).toEqual([]);
   await page.evaluate(() => document.fonts.ready);
