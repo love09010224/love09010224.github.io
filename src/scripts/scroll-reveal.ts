@@ -21,6 +21,7 @@ function setupScrollReveal() {
   const distance = compact ? 16 : 20;
   const duration = compact ? 440 : 560;
   const seen = new WeakSet<HTMLElement>();
+  const observed = new WeakSet<Element>();
   const active = new Map<HTMLElement, Animation>();
 
   const stop = (target: HTMLElement) => {
@@ -52,10 +53,14 @@ function setupScrollReveal() {
     let previousTop = -Infinity;
     let rowIndex = 0;
     for (const entry of entries) {
+      const initialObservation = !observed.has(entry.target);
+      observed.add(entry.target);
       if (!entry.isIntersecting) continue;
       rowIndex = Math.abs(entry.boundingClientRect.top - previousTop) < 32 ? rowIndex + 1 : 0;
       previousTop = entry.boundingClientRect.top;
-      reveal(entry.target as HTMLElement, Math.min(rowIndex * 60, 120));
+      // Opening a route is not scrolling. Its initial viewport must not flash
+      // or replay a page-entry effect; only previously offscreen blocks animate.
+      reveal(entry.target as HTMLElement, Math.min(rowIndex * 60, 120), !initialObservation);
     }
   }, { rootMargin: '0px 0px 24px 0px', threshold: 0.08 });
 

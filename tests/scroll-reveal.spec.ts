@@ -1,5 +1,41 @@
 import { test, expect } from '@playwright/test';
 
+test('navigation and reload do not replay entrance effects in the initial viewport', async ({ page }) => {
+  await page.addInitScript(() => {
+    const state = window as typeof window & { revealCalls: string[] };
+    state.revealCalls = [];
+    const animate = Element.prototype.animate;
+    Element.prototype.animate = function (this: Element, ...args: Parameters<Element['animate']>) {
+      if (this.hasAttribute('data-reveal')) state.revealCalls.push(this.className);
+      return animate.apply(this, args);
+    };
+  });
+  const expectNoEntranceEffect = async () => {
+    await expect(page.locator('main [data-reveal]').first()).toHaveAttribute('data-reveal', 'visible');
+    expect(await page.evaluate(() => (window as typeof window & { revealCalls: string[] }).revealCalls)).toEqual([]);
+  };
+
+  await page.goto('/');
+  await expectNoEntranceEffect();
+  for (const label of ['Achievements', 'Experience', 'Links', 'Home']) {
+    await page.getByRole('navigation', { name: '메인 메뉴' }).getByRole('link', { name: label, exact: true }).click();
+    await expectNoEntranceEffect();
+  }
+  await page.reload();
+  await expectNoEntranceEffect();
+  await page.goBack();
+  await expectNoEntranceEffect();
+
+  // The navigation fix must not disable subsequent scroll-triggered motion.
+  await page.getByRole('navigation', { name: '메인 메뉴' }).getByRole('link', { name: 'Achievements', exact: true }).click();
+  await expectNoEntranceEffect();
+  const project = page.locator('.project-card');
+  await expect(project).toHaveAttribute('data-reveal', 'pending');
+  await project.evaluate((element) => element.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  await expect(project).toHaveAttribute('data-reveal', 'visible');
+  expect(await page.evaluate(() => (window as typeof window & { revealCalls: string[] }).revealCalls)).toContain('project-card');
+});
+
 test('content on every page participates, but navigation stays still', async ({ page }) => {
   for (const path of ['/', '/achievements/', '/experience/', '/links/', '/not-a-real-page/']) {
     await page.goto(path);
