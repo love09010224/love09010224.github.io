@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Bucket hat — icon drafts</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #f3eee9; color: #4c4440; font-family: Arial, sans-serif; }
+      main { max-width: 1120px; margin: auto; padding: 48px 40px 32px; }
+      header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 30px; }
+      h1 { margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -.6px; }
+      header p, footer { margin: 0; color: #6b605a; font-size: 12px; line-height: 1.6; }
+      .variants { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+      article { min-width: 0; }
+      h2 { display: flex; gap: 12px; margin: 0 0 18px; font-size: 15px; font-weight: 500; }
+      h2 span { color: #6b605a; }
+      .large { display: grid; place-items: center; height: 240px; background: #fcf8f4; border: 1px solid #ded5ce; }
+      .large img { width: 176px; height: 176px; }
+      .sizes { display: flex; align-items: flex-end; justify-content: space-around; gap: 14px; padding: 24px 22px 20px; }
+      figure { margin: 0; display: grid; justify-items: center; gap: 12px; }
+      img { display: block; }
+      figcaption { color: #6b605a; font-size: 10px; }
+      .dark { background: #292625; }
+      .dark figcaption { color: #d9cbc0; }
+      .browser { margin-top: 20px; padding: 12px 12px 0; background: #e4ded8; border: 1px solid #ded5ce; border-bottom: 0; }
+      .tab { display: flex; align-items: center; gap: 9px; max-width: 240px; min-height: 36px; padding: 10px 14px; border-radius: 7px 7px 0 0; background: #fcf8f4; font-size: 11px; }
+      .tab img { width: 16px; height: 16px; flex-shrink: 0; }
+      .tab span:last-child { margin-left: auto; color: #6b605a; }
+      footer { margin-top: 24px; }
+      @media (max-width: 650px) {
+        main { padding: 28px 20px; }
+        header { align-items: flex-start; flex-direction: column; gap: 8px; }
+        .variants { grid-template-columns: 1fr; gap: 32px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header><h1>Bucket hat</h1><p>SVG drafts · transparent background</p></header>
+      <div class="variants">
+        <article aria-labelledby="rounded-title">
+          <h2 id="rounded-title"><span>01</span> Rounded · wider brim · −15°</h2>
+          <div class="large"><img src="rounded.svg" alt="둥근 챙을 양옆으로 넓힌 버킷햇 시안" width="176" height="176" /></div>
+          <div class="sizes" aria-label="밝은 배경에서 크기 비교">
+            <figure><img src="rounded.svg" alt="" width="16" height="16" /><figcaption>16 px</figcaption></figure>
+            <figure><img src="rounded.svg" alt="" width="24" height="24" /><figcaption>24 px</figcaption></figure>
+            <figure><img src="rounded.svg" alt="" width="32" height="32" /><figcaption>32 px</figcaption></figure>
+            <figure><img src="rounded.svg" alt="" width="48" height="48" /><figcaption>48 px</figcaption></figure>
+          </div>
+          <div class="sizes dark" aria-label="어두운 배경에서 크기 비교">
+            <figure><img src="rounded.svg" alt="" width="16" height="16" /><figcaption>16 px</figcaption></figure>
+            <figure><img src="rounded.svg" alt="" width="24" height="24" /><figcaption>24 px</figcaption></figure>
+            <figure><img src="rounded.svg" alt="" width="32" height="32" /><figcaption>32 px</figcaption></figure>
+            <figure><img src="rounded.svg" alt="" width="48" height="48" /><figcaption>48 px</figcaption></figure>
+          </div>
+          <div class="browser" aria-label="브라우저 탭 적용 예시"><div class="tab"><img src="rounded.svg" alt="" width="16" height="16" /><span>Seojin An — Portfolio</span><span aria-hidden="true">×</span></div></div>
+        </article>
+        <article aria-labelledby="angular-title">
+          <h2 id="angular-title"><span>02</span> Angular</h2>
+          <div class="large"><img src="angular.svg" alt="각진 챙의 버킷햇 시안" width="176" height="176" /></div>
+          <div class="sizes" aria-label="밝은 배경에서 크기 비교">
+            <figure><img src="angular.svg" alt="" width="16" height="16" /><figcaption>16 px</figcaption></figure>
+            <figure><img src="angular.svg" alt="" width="24" height="24" /><figcaption>24 px</figcaption></figure>
+            <figure><img src="angular.svg" alt="" width="32" height="32" /><figcaption>32 px</figcaption></figure>
+            <figure><img src="angular.svg" alt="" width="48" height="48" /><figcaption>48 px</figcaption></figure>
+          </div>
+          <div class="sizes dark" aria-label="어두운 배경에서 크기 비교">
+            <figure><img src="angular.svg" alt="" width="16" height="16" /><figcaption>16 px</figcaption></figure>
+            <figure><img src="angular.svg" alt="" width="24" height="24" /><figcaption>24 px</figcaption></figure>
+            <figure><img src="angular.svg" alt="" width="32" height="32" /><figcaption>32 px</figcaption></figure>
+            <figure><img src="angular.svg" alt="" width="48" height="48" /><figcaption>48 px</figcaption></figure>
+          </div>
+          <div class="browser" aria-label="브라우저 탭 적용 예시"><div class="tab"><img src="angular.svg" alt="" width="16" height="16" /><span>Seojin An — Portfolio</span><span aria-hidden="true">×</span></div></div>
+        </article>
+      </div>
+      <footer>Rounded fill #f3eee9 · Angular fill #fcf8f4 · Stroke #4c4440 · Transparent SVG</footer>
+    </main>
+  </body>
+</html>

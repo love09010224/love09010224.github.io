@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>Angular bucket hat</title>
+  <path d="m12 37 5-21q.5-2 3-2h24q2.5 0 3 2l5 21 7 12q1 2-2 3l-12 3H19L7 52q-3-1-2-3Z" fill="#fcf8f4" stroke="#4c4440" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="m12 37 9 2h22l9-2" stroke="#4c4440" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

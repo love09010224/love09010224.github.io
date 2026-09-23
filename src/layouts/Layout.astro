@@ -1,7 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
 import portrait from '../assets/portrait.png';
-import Icon from '../components/Icon.astro';
 import { profile } from '../data/portfolio';
 import '../styles/global.css';
 
@@ -29,7 +28,7 @@ const fullTitle = current === 'Home' ? 'Seojin An — Vulnerability Researcher' 
     <meta name="generator" content={Astro.generator} />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg?v=wide-brim-tilt15" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ko_KR" />
     <meta property="og:site_name" content="Seojin An · love09010224" />
@@ -50,7 +49,6 @@ const fullTitle = current === 'Home' ? 'Seojin An — Vulnerability Researcher' 
     <a class="skip-link" href="#main">본문으로 건너뛰기</a>
     <header class="site-header shell">
       <a class="brand" href="/" aria-label="love09010224, Home">
-        <span class="brand-symbol" aria-hidden="true">s<span>.</span></span>
         <span>{profile.handle}</span>
       </a>
       <nav class="main-nav" aria-label="메인 메뉴">
@@ -59,13 +57,9 @@ const fullTitle = current === 'Home' ? 'Seojin An — Vulnerability Researcher' 
     </header>
     <main id="main" class="shell" tabindex="-1"><slot /></main>
     <footer class="site-footer shell">
-      <div class="footer-top">
-        <a href="/" class="footer-signature" aria-label="Seojin An, Home">Seojin An<span>.</span></a>
-        <span class="footer-note">A little curiosity, every day.</span>
-        <a class="text-link" href="/links/">Say hello <Icon name="external" size={17} /></a>
-      </div>
       <div class="footer-bottom">
         <span>© {new Date().getFullYear()} Seojin An</span>
+        <span class="footer-note">A little curiosity, every day.</span>
         <span class="footer-links"><a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (새 탭)</span></a><span aria-hidden="true">/</span><a href={profile.velog} target="_blank" rel="noopener noreferrer">Velog<span class="sr-only"> (새 탭)</span></a></span>
       </div>
     </footer>

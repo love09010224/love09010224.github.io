@@ -1,7 +1,18 @@
 ---
+import { Image } from 'astro:assets';
+import notFoundPortrait from '../assets/not-found.png';
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 ---
 <Layout title="Page not found" description="찾으시는 페이지가 없습니다. Seojin An의 포트폴리오 홈으로 돌아가세요." noindex>
-  <section class="not-found"><p class="eyebrow">A small detour</p><span class="error-number" aria-hidden="true">404<span class="accent-dot">.</span></span><h1>이 페이지는 찾을 수 없어요.</h1><p>주소를 다시 확인하거나, 처음으로 돌아가 볼까요?</p><a class="button button-primary" href="/">Back to home <Icon name="arrow" size={18} /></a></section>
+  <section class="not-found" aria-labelledby="not-found-title">
+    <Image src={notFoundPortrait} alt="울먹이며 휴대폰을 들고 있는 Seojin An의 캐릭터" widths={[220, 320, 440, 640]} sizes="(max-width: 560px) 220px, 320px" width={320} format="webp" quality={85} loading="eager" class="not-found-image" />
+    <div class="not-found-copy">
+      <p class="eyebrow">A small detour</p>
+      <span class="error-number" aria-hidden="true">404</span>
+      <h1 id="not-found-title">이 페이지는 찾을 수 없어요.</h1>
+      <p>주소를 다시 확인하거나, 처음으로 돌아가 볼까요?</p>
+      <a class="button button-primary" href="/">Back to home <Icon name="arrow" size={18} /></a>
+    </div>
+  </section>
 </Layout>

@@ -9,8 +9,8 @@ import { profile, skills, education, vulnerabilities } from '../data/portfolio';
 <Layout title="Home" current="Home" description="Seojin An (love09010224)의 포트폴리오. 시스템 해킹, 리버스 엔지니어링과 오픈소스 취약점 연구의 기록입니다.">
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="small-dot" aria-hidden="true"></span>{profile.title}</p>
-      <h1 id="hero-title"><span class="hero-greeting">Hello, I’m</span><br />Seojin An<span class="accent-dot">.</span></h1>
+      <p class="eyebrow">{profile.title}</p>
+      <h1 id="hero-title"><span class="hero-greeting">Hello, I’m</span><br />Seojin An</h1>
       <p class="hero-description">시스템의 안쪽을 살피고,<br />더 안전한 소프트웨어를 고민합니다.</p>
       <p class="hero-affiliation">Undergraduate at the University of Seoul</p>
       <div class="hero-actions">
@@ -54,7 +54,7 @@ import { profile, skills, education, vulnerabilities } from '../data/portfolio';
   <section class="highlights-section" aria-labelledby="highlights-title">
     <SectionHeading number="04" title="Selected highlights" id="highlights-title"><a href="/achievements/" class="text-link">전체 기록 <Icon name="arrow" size={17} /></a></SectionHeading>
     <div class="highlights-grid">
-      <a class="highlight-card" href="/achievements/#awards"><div class="highlight-top"><span class="eyebrow">CTF · 2026</span><Icon name="trophy" /></div><div class="highlight-number">1<span>st place</span></div><h3>ACTF 2026</h3><p>따따 <Icon name="external" size={20} /></p></a>
+      <a class="highlight-card" href="/achievements/#awards"><div class="highlight-top"><span class="eyebrow">CTF · 2026</span><Icon name="flag" /></div><div class="highlight-number">7<span>th place</span></div><h3>DEF CON 34 CTF Final</h3><p>Jinddabi's <Icon name="external" size={20} /></p></a>
       <a class="highlight-card" href="/achievements/#awards"><div class="highlight-top"><span class="eyebrow">CTF · 2026</span><Icon name="flag" /></div><div class="highlight-number">2<span>nd place</span></div><h3>Codegate 2026 Final</h3><p>General · 따따 <Icon name="external" size={20} /></p></a>
       <a class="highlight-card highlight-research" href="/achievements/#cves"><div class="highlight-top"><span class="eyebrow">Security research</span><Icon name="shield" /></div><div class="highlight-number">{vulnerabilities.length.toString().padStart(2, '0')}<span>CVEs</span></div><h3>Vulnerability disclosures</h3><p>OpenProject <Icon name="external" size={20} /></p></a>
     </div>

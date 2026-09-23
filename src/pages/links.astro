@@ -3,8 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import { profile } from '../data/portfolio';
 ---
-<Layout title="Links" current="Links" description="Seojin An (love09010224)의 GitHub, Velog, CTFtime과 Discord. 코드와 기술 기록, 연락처를 한곳에서 확인하세요.">
-  <div class="page-intro"><p class="eyebrow">Find me elsewhere</p><h1>Let’s connect<span class="accent-dot">.</span></h1><p>코드와 기록, 그리고 새로운 이야기.</p></div>
+<Layout title="Links" current="Links" description="Seojin An (love09010224)의 이메일, GitHub, Velog, CTFtime과 Discord. 코드와 기술 기록, 연락처를 한곳에서 확인하세요.">
+  <div class="page-intro"><p class="eyebrow">Find me elsewhere</p><h1>Let’s connect</h1><p>코드와 기록, 그리고 새로운 이야기.</p></div>
+  <section class="email-contact" aria-labelledby="email-title">
+    <h2 id="email-title">Email</h2>
+    <a class="email-link" href={`mailto:${profile.email}`}><span>{profile.email}</span><Icon name="arrow" size={18} /><span class="sr-only">이메일 보내기</span></a>
+  </section>
   <div class="links-grid">
     <a class="social-card" href={profile.github} target="_blank" rel="noopener noreferrer"><span class="social-icon"><Icon name="github" size={27} /></span><span class="social-action" aria-hidden="true"><Icon name="external" size={23} /></span><h2>GitHub</h2><p class="social-handle">{profile.handle}</p><p class="social-description">코드와 프로젝트</p><span class="sr-only">새 탭에서 열기</span></a>
     <a class="social-card" href={profile.velog} target="_blank" rel="noopener noreferrer"><span class="social-icon"><Icon name="book" size={27} /></span><span class="social-action" aria-hidden="true"><Icon name="external" size={23} /></span><h2>Velog</h2><p class="social-handle">{profile.handle}</p><p class="social-description">공부하고 발견한 것들의 기록</p><span class="sr-only">새 탭에서 열기</span></a>
