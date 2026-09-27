@@ -49,12 +49,15 @@ export const results: CtfResult[] = [
   { event: 'ACTF', year: 2026, place: 1, team: '따따', featured: true },
   { event: 'TJCTF', year: 2026, place: 1, team: "Jinddabi’s", featured: true },
   { event: 'DEF CON 34 Final', year: 2026, place: 7, team: "Jinddabi’s", featured: true },
-  { event: 'SCTF', year: 2026, place: 1, team: '따따', featured: true },
   { event: 'Hacktheon Sejong Final', year: 2026, place: 2, team: 'SHA-4', division: 'Beginner', featured: true },
   { event: 'Codegate Final', year: 2026, place: 2, team: '따따', division: 'General', featured: true },
+  { event: 'Hacking Camp 31st CTF', year: 2025, place: 2, team: 'K-Pop Demon Hackers', featured: true },
+  
   { event: 'DiceCTF Quals', year: 2026, place: 5, team: '따따', featured: false },
+  { event: 'Hacking Camp 32st CTF', year: 2026, place: 4, team: '해킹캠프 우승하면 팀장님이 두쫀쿠 사주신대요', featured: true },
   { event: 'Black Hat MEA CTF Quals', year: 2026, place: 1, team: '따따', featured: false },
-  { event: '1st KISIA CTF Final', year: 2026, place: 10, team: 'UOS-SHA', featured: false }, // Year not specified in the source.
+  { event: '1st KISIA CTF Final', year: 2026, place: 10, team: 'UOS-SHA', featured: false }, 
+  { event: 'SCTF', year: 2026, place: 1, team: '따따', featured: true },
   { event: 'SekaiCTF', year: 2026, place: 7, team: "Jinddabi’s", featured: false },
   { event: 'TFCCTF', year: 2026, place: 10, team: 'seojin fan club', featured: false },
   { event: 'SAS CTF Quals', year: 2026, place: 5, team: '따따', featured: false },
