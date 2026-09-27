@@ -1,6 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { profile, skills, projects, work, results, vulnerabilities } from '../src/data/portfolio';
+import { profile, skills, projects, work, activities, results, vulnerabilities } from '../src/data/portfolio';
 
 const pages = [
   { path: '/', label: 'Home', heading: /^Hello, I’m\s*Seojin An$/ },
@@ -141,10 +141,23 @@ test('each project has its own artwork and space between cards', async ({ page }
 
 test('work roles match the content and all activities have the supplied dates', async ({ page }) => {
   await page.goto('/experience/');
-  await expect(page.locator('.timeline li')).toHaveCount(4);
-  await expect(page.locator('.timeline li').nth(0)).toContainText('버비컴퍼니');
-  await expect(page.locator('.timeline .date-range')).toHaveText(['2025.09 — 현재', '2025.03 — 현재', '2026.09 — 현재', '2026.04 — 현재']);
+  // Content edits can add, reorder or end entries without changing this test.
+  for (const [heading, items, activeLabel] of [
+    ['work-title', work, '재직 중'],
+    ['activities-title', activities, '활동 중'],
+  ] as const) {
+    const timeline = page.locator(`section[aria-labelledby="${heading}"] .timeline`);
+    await expect(timeline.locator('li')).toHaveCount(items.length);
+    await expect(timeline.locator('h3')).toHaveText(items.map((item) => item.organization));
+    await expect(timeline.locator('.date-range')).toHaveText(items.map((item) => `${item.start} — ${item.end || '현재'}`));
+    for (let index = 0; index < items.length; index++) {
+      const badge = timeline.locator('li').nth(index).locator('.status-badge');
+      if (items[index].end) await expect(badge).toHaveCount(0);
+      else await expect(badge).toHaveText(activeLabel);
+    }
+  }
   await expect(page.locator('.work-role')).toHaveText(work.map((item) => item.role).filter(Boolean));
+  await expect(page.locator('.activity-type')).toHaveText(activities.map((item) => item.type));
 });
 
 test('contact email opens the supplied mail address', async ({ page }) => {
