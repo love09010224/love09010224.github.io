@@ -99,7 +99,7 @@ export const projects: Project[] = [
     name: 'SHA System Hacking Study : how2heap',
     art: {
       title: 'Exploit &\nTechnology',
-      caption: 'glibc / heap exploitation',
+      caption: 'GLIBC / HEAP EXPLOITATION',
       icon: 'terminal',
     },
     subtitle: 'Studying glibc Heap Exploitation Methods',
