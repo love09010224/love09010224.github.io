@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro';
+import type { Project } from '../data/portfolio';
+
+interface Props { project: Project }
+const { project } = Astro.props;
+const title = project.art?.title?.trim() || project.name;
+const caption = project.art?.caption ?? project.subtitle;
+const icon = project.art?.icon ?? 'code';
+---
+<article class="project-card">
+  <div class="project-art" aria-hidden="true">
+    <Icon name={icon} size={40} />
+    <span class="project-art-title">{title.split(/(&)/).map((part) => part === '&' ? <i>{part}</i> : part)}</span>
+    {caption && <span class="project-art-caption">{caption}</span>}
+  </div>
+  <div class="project-content">
+    <span class="eyebrow">Project · {project.year}</span>
+    <h3>{project.name}</h3>
+    <p class="project-subtitle">{project.subtitle}</p>
+    {project.role && <p class="project-role">{project.role}</p>}
+    {project.description && <p>{project.description}</p>}
+    {project.url && <a class="text-link" href={project.url} target="_blank" rel="noopener noreferrer">프로젝트 보기 <Icon name="external" /><span class="sr-only"> (새 탭)</span></a>}
+  </div>
+</article>

@@ -1,3 +1,5 @@
+import type { IconName } from './icons';
+
 /**
  * Portfolio content. Edit this file to update the site.
  * Biography / results / handles: https://velog.io/@love09010224/about
@@ -55,6 +57,7 @@ export const results: CtfResult[] = [
   { event: 'TFCCTF', year: 2026, place: 10, team: 'seojin fan club', featured: false },
   { event: 'SAS CTF Quals', year: 2026, place: 5, team: '따따', featured: false },
   { event: 'CCE Final', year: 2026, place: 8, team: '이성민남친구함', division: 'General', featured: false },
+  { event: 'FAUST CTF (A&D)', year: 2026, place: 5, team: '따따', featured: false }
 ];
 
 export const vulnerabilities = [
@@ -76,9 +79,51 @@ export const vulnerabilities = [
   },
 ];
 
-export const projects = [
+export interface Project {
+  name: string;
+  subtitle: string;
+  year: string;
+  role: string;
+  description: string;
+  url: string;
+  // Left panel. Use \n in the title for line breaks; omit art to use defaults.
+  art?: {
+    title?: string;
+    caption?: string;
+    icon?: IconName;
+  };
+}
+
+export const projects: Project[] = [
+  {
+    name: 'SHA System Hacking Study : how2heap',
+    art: {
+      title: 'Exploit &\nTechnology',
+      caption: 'glibc / heap exploitation',
+      icon: 'terminal',
+    },
+    subtitle: 'Studying glibc Heap Exploitation Methods',
+    year: '2025',
+    role: '',
+    description: 'Shellphish의 실습 자료 how2heap를 중심으로 여러 glibc 버전에서의 힙 공격 방식을 탐구했습니다. 각자 한 가지씩 취약점 유형을 맡아 발표하는 방식으로 진행되었는데, 저는 이 중 mmap 청크 겹침 취약점에 대하여 발표 및 실습 예제를 만들어 스터디를 리드했습니다.',
+    url: '',
+  },
+  {
+    name: 'SHA Bug Bounty Project : OpenProject',
+    art: {
+      title: 'OpenProject',
+      caption: 'OPEN SOURCE / BUG BOUNTY',
+      icon: 'shield',
+    },
+    subtitle: 'Open Source Bug Bounty',
+    year: '2026',
+    role: '',
+    description: '프로젝트 관리 서비스인 OpenProject 앱에 대하여 SHA 학술팀에서 버그바운티를 수행하였습니다. 먼저 앱에서의 신뢰 경계와 Multi-tenant 구조의 서비스 관리를 위한 Access Control 방식에 대하여 학습한 뒤 이를 응용하여 신뢰 경계가 깨지는 부분을 여러 군데 찾아 보고서를 작성하여 제출하였습니다. 그 결과, 총 4건의 보고 중 2건에 대하여 CVE를 발급받는데 성공하였습니다.',
+    url: '',
+  },
   {
     name: 'Room Escape CTF (Sponsered by HSPACE)',
+    art: { title: 'SHA &\nDoorlock', caption: 'ESCAPE ROOM / CTF', icon: 'lock' },
     subtitle: '주말에 뭐하세요? 바쁘세요? 해결 가능하신가요?',
     year: '2026',
     role: '',
@@ -99,6 +144,8 @@ export const work = [
 
 export const activities = [
   { organization: '서울시립대학교 보안소모임 SHA', type: 'Security', start: '2025.03', end: '' },
-  { organization: '서울시립대학교 암호동아리 Doorlock', type: 'Cryptography', start: '2026.09', end: '' },
   { organization: '따따', type: '(a.k.a dda_com, dda.com) CTF Team', start: '2026.04', end: '' },
+  { organization: 'Jinddabi’s', type: 'CTF Task-Force Team for DEF CON', start: '2026.07', end: '2026.08' },
+  { organization: '서울시립대학교 암호동아리 Doorlock', type: 'Cryptography', start: '2026.09', end: '' },
+  
 ];

@@ -13,6 +13,33 @@ npm ci
 npm run dev
 ```
 
+## 프로젝트 추가
+
+`src/data/portfolio.ts`의 `projects` 배열에 항목을 추가하면 됩니다.
+왼쪽 영역은 각 항목의 `art`에서 따로 설정합니다.
+
+```ts
+{
+  name: '프로젝트 이름',
+  subtitle: '간단한 소개',
+  year: '2026',
+  role: '',
+  description: '프로젝트 설명',
+  url: '',
+  art: {
+    title: '왼쪽 제목\n두 번째 줄', // \n으로 줄바꿈
+    caption: 'PROJECT CATEGORY',
+    icon: 'code',
+  },
+},
+```
+
+- `art`를 생략하면 프로젝트 이름·소개와 `code` 아이콘을 사용합니다.
+- `caption: ''`이면 왼쪽 하단 문구를 숨깁니다.
+- 아이콘 예: `code`, `shield`, `lock`, `terminal`, `book`, `flag`, `users`.
+  전체 목록은 `src/data/icons.ts`에서 확인할 수 있습니다.
+- `role`, `description`, `url`은 빈 문자열이면 표시하지 않습니다.
+
 ## 검증
 
 ```sh

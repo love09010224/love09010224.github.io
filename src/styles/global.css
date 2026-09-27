@@ -69,8 +69,6 @@ main:focus { outline: none; }
 /* Keep the face at its original scale and trim only the bottom 10%. */
 .portrait-image { width: 100%; height: auto; aspect-ratio: 8 / 9; object-fit: cover; object-position: center top; }
 .portrait-spark { position: absolute; top: 13px; right: -16px; color: #aa9694; transform: rotate(13deg); }
-.portrait-sticker { position: absolute; left: -27px; bottom: 29px; display: flex; align-items: center; gap: 9px; padding: 10px 16px; border: 1px solid #e4d8d0; border-radius: 5px; background: var(--surface); box-shadow: 0 4px 12px #66504009; font-size: 12px; transform: rotate(-6deg); }
-.portrait-sticker > span { color: #9a757f; font-size: 21px; line-height: 1; }
 .portrait figcaption { margin-top: 18px; text-align: center; font-size: 10px; letter-spacing: .035em; color: var(--muted); }
 .portrait figcaption span { margin-inline: 9px; color: var(--taupe); }
 
@@ -158,13 +156,14 @@ main:focus { outline: none; }
 .cve-links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); }
 .cve-links .text-link { font-size: 10px; gap: 4px; }
 .cve-record { color: var(--muted); }
-.project-card { display: grid; grid-template-columns: 290px 1fr; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.project-list { display: grid; gap: 24px; }
+.project-card { display: grid; grid-template-columns: 290px minmax(0, 1fr); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 .project-art { position: relative; min-height: 270px; padding: 28px 35px; background: #e5dad1; border-right: 1px solid var(--line); }
 .project-art > .icon { position: absolute; top: 30px; right: 30px; color: #8d7d71; }
-.project-art > span:not(.project-art-caption) { display: block; margin-top: 44px; font-size: 35px; font-weight: 500; line-height: 1.05; letter-spacing: -.04em; }
+.project-art-title { display: block; margin-top: 44px; font-size: 35px; font-weight: 500; line-height: 1.05; letter-spacing: -.04em; white-space: pre-line; overflow-wrap: anywhere; }
 .project-art i { font-family: Georgia, serif; color: #8a736e; font-weight: 400; }
-.project-art-caption { display: block; margin-top: 26px; font-size: 8px; letter-spacing: .18em; color: #66584f; }
-.project-content { align-self: center; padding: 36px 43px; }
+.project-art-caption { display: block; margin-top: 26px; font-size: 8px; letter-spacing: .18em; color: #66584f; overflow-wrap: anywhere; }
+.project-content { min-width: 0; align-self: center; padding: 36px 43px; overflow-wrap: anywhere; }
 .project-content h3 { font-size: 29px; letter-spacing: -.04em; margin-top: 16px; }
 .project-subtitle { color: var(--muted); font-size: 14px; margin-top: 12px; }
 .project-role, .project-content > p:not(.project-subtitle) { font-size: 13px; margin-top: 12px; }
@@ -241,7 +240,7 @@ a.social-card:hover { background: var(--surface); border-color: var(--taupe); tr
   .education-list li { grid-template-columns: 1fr; gap: 3px; }
   .education-list .date-range { margin-top: 2px; }
   .highlight-card { padding: 19px; }
-  .project-card { grid-template-columns: 250px 1fr; }
+  .project-card { grid-template-columns: 250px minmax(0, 1fr); }
   .project-content { padding: 30px; }
 }
 @media (max-width: 760px) {
@@ -259,7 +258,6 @@ a.social-card:hover { background: var(--surface); border-color: var(--taupe); tr
   .hero-actions .button { padding: 10px 12px; min-height: 42px; font-size: 10px; gap: 8px; }
   .hero-actions .button-text { padding-inline: 4px; }
   .portrait { max-width: 270px; }
-  .portrait-sticker { left: -14px; padding: 7px 11px; font-size: 10px; bottom: 23px; }
   .portrait-spark { top: 4px; right: -10px; }
   .portrait-spark .icon { width: 30px; height: 30px; }
   .portrait figcaption { font-size: 8px; }
@@ -288,7 +286,8 @@ a.social-card:hover { background: var(--surface); border-color: var(--taupe); tr
   .cve-card h3 { font-size: 18px; }
   .cve-card-meta { align-items: flex-start; flex-direction: column; }
   .cve-list { gap: 14px; }
-  .project-card { grid-template-columns: 200px 1fr; }
+  .project-card { grid-template-columns: 200px minmax(0, 1fr); }
+  .project-art-title { font-size: 28px; }
   .project-art { padding: 26px; min-height: 250px; }
   .project-content { padding: 25px; }
   .project-content h3 { font-size: 24px; }
@@ -309,7 +308,6 @@ a.social-card:hover { background: var(--surface); border-color: var(--taupe); tr
   .hero-actions .button { font-size: 11px; padding: 12px 14px; }
   .hero-actions .button-text { padding-inline: 8px; }
   .portrait { max-width: 260px; }
-  .portrait-sticker { font-size: 10px; left: -19px; }
   .portrait figcaption { font-size: 9px; }
   .about-copy { font-size: 19px; }
   .body-copy { font-size: 13px; }
@@ -356,7 +354,7 @@ a.social-card:hover { background: var(--surface); border-color: var(--taupe); tr
   .cve-links .text-link { font-size: 11px; }
   .project-card { grid-template-columns: 1fr; }
   .project-art { min-height: 206px; border-right: 0; border-bottom: 1px solid var(--line); }
-  .project-art > span:not(.project-art-caption) { margin-top: 13px; font-size: 36px; }
+  .project-art-title { margin-top: 13px; padding-right: 52px; font-size: 36px; }
   .project-art-caption { margin-top: 23px; }
   .project-art > .icon { top: 30px; right: 32px; width: 44px; height: 44px; }
   .project-content { padding: 29px 25px; }

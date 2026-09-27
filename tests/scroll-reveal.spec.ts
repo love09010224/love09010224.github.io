@@ -29,7 +29,7 @@ test('navigation and reload do not replay entrance effects in the initial viewpo
   // The navigation fix must not disable subsequent scroll-triggered motion.
   await page.getByRole('navigation', { name: '메인 메뉴' }).getByRole('link', { name: 'Achievements', exact: true }).click();
   await expectNoEntranceEffect();
-  const project = page.locator('.project-card');
+  const project = page.locator('.project-card').last();
   await expect(project).toHaveAttribute('data-reveal', 'pending');
   await project.evaluate((element) => element.scrollIntoView({ block: 'center', behavior: 'instant' }));
   await expect(project).toHaveAttribute('data-reveal', 'visible');
@@ -106,8 +106,10 @@ test('fragment navigation bypasses motion for the destination section', async ({
   }
   await page.locator('.section-nav a[href="#projects"]').click();
   await expect(page).toHaveURL(/#projects$/);
-  await expect(page.locator('.project-card')).toHaveAttribute('data-reveal', 'visible');
-  await expect.poll(() => page.locator('.project-card').evaluate((element) => element.getAnimations().length)).toBe(0);
+  for (const project of await page.locator('.project-card').all()) {
+    await expect(project).toHaveAttribute('data-reveal', 'visible');
+    await expect.poll(() => project.evaluate((element) => element.getAnimations().length)).toBe(0);
+  }
 });
 
 test('opening more results still reveals the newly displayed rows', async ({ page }) => {

@@ -1,6 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { profile, skills, projects, work } from '../src/data/portfolio';
+import { profile, skills, projects, work, results, vulnerabilities } from '../src/data/portfolio';
 
 const pages = [
   { path: '/', label: 'Home', heading: /^Hello, I’m\s*Seojin An$/ },
@@ -96,18 +96,47 @@ test('all provided skills and education, and the smiling portrait are present', 
   expect(await image.evaluate((node) => getComputedStyle(node).objectPosition)).toBe('50% 0%');
 });
 
-test('all 13 CTF results, two CVEs and the project are included', async ({ page }) => {
+test('all supplied CTF results, CVEs and projects are included', async ({ page }) => {
   await page.goto('/achievements/');
-  await expect(page.locator('[data-result]:visible')).toHaveCount(6);
+  await expect(page.locator('[data-result]:visible')).toHaveCount(results.filter((result) => result.featured).length);
   await page.locator('summary').click();
-  await expect(page.locator('[data-result]:visible')).toHaveCount(13);
-  await expect(page.locator('.cve-id')).toHaveText(['CVE-2026-47193', 'CVE-2026-52779']);
+  await expect(page.locator('[data-result]:visible')).toHaveCount(results.length);
+  await expect(page.locator('.cve-id')).toHaveText(vulnerabilities.map((cve) => cve.id));
   await expect(page.locator('.project-content h3')).toHaveText(projects.map((project) => project.name));
   await expect(page.locator('.project-subtitle')).toHaveText(projects.map((project) => project.subtitle));
   await expect(page.locator('.project-role')).toHaveText(projects.map((project) => project.role).filter(Boolean));
   await settleMotion(page);
   const accessibility = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
   expect(accessibility.violations.map(({ id, nodes }) => ({ id, nodes: nodes.map(({ target, failureSummary }) => ({ target, failureSummary })) }))).toEqual([]);
+});
+
+test('each project has its own artwork and space between cards', async ({ page }, testInfo) => {
+  await page.goto('/achievements/#projects');
+  const cards = page.locator('.project-card');
+  await expect(cards).toHaveCount(projects.length);
+  await expect(page.locator('.section-nav a[href="#projects"] span')).toHaveText(String(projects.length));
+  for (let index = 0; index < projects.length; index++) {
+    const project = projects[index];
+    const card = cards.nth(index);
+    await expect(card.locator('.project-art-title')).toHaveText(project.art?.title?.trim() || project.name);
+    const caption = project.art?.caption ?? project.subtitle;
+    if (caption) await expect(card.locator('.project-art-caption')).toHaveText(caption);
+    else await expect(card.locator('.project-art-caption')).toHaveCount(0);
+    await expect(card.locator('.project-art > svg')).toHaveCount(1);
+  }
+  // Read both positions in the same frame while fragment scrolling settles.
+  const gaps = await cards.evaluateAll((elements) => elements.slice(1).map((element, index) =>
+    element.getBoundingClientRect().top - elements[index].getBoundingClientRect().bottom,
+  ));
+  for (const gap of gaps) expect(gap).toBeGreaterThanOrEqual(23);
+  const icons = await cards.locator('.project-art > svg').evaluateAll((elements) => elements.map((element) => element.innerHTML));
+  for (let index = 1; index < projects.length; index++) {
+    if ((projects[index].art?.icon ?? 'code') !== (projects[index - 1].art?.icon ?? 'code')) {
+      expect(icons[index]).not.toBe(icons[index - 1]);
+    }
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.locator('.project-list').screenshot({ path: testInfo.outputPath('projects.png'), animations: 'disabled', scale: 'css' });
 });
 
 test('work roles match the content and all activities have the supplied dates', async ({ page }) => {
