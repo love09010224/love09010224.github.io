@@ -29,11 +29,20 @@ export const skills = [
   { category: 'Databases', items: ['MySQL', 'MongoDB'] },
 ];
 
-export const education = [
-  { school: '해킹캠프 32기', department: '팀 "해킹캠프 우승하면 팀장님이 두쫀쿠 사주신대요"', start: '2026.02.21', end: '2026.02.22' },
-  { school: '해킹캠프 31기', department: '팀 "K-Pop Demon Hackers"', start: '2025.08.30', end: '2025.08.31' },
-  { school: '서울시립대학교', department: '컴퓨터과학부', start: '2025.03', end: '' },
-  { school: '한국디지털미디어고등학교', department: '웹프로그래밍과', start: '2022.03', end: '2025.02' },
+export interface Education {
+  school: string;
+  department: string;
+  start: string;
+  end: string;
+  // true: 갈색 점 강조. false 또는 생략: 기본색.
+  highlight?: boolean;
+}
+
+export const education: Education[] = [
+  { school: '해킹캠프 32기', department: '팀 "해킹캠프 우승하면 팀장님이 두쫀쿠 사주신대요"', start: '2026.02.21', end: '2026.02.22', highlight: false },
+  { school: '해킹캠프 31기', department: '팀 "K-Pop Demon Hackers"', start: '2025.08.30', end: '2025.08.31', highlight: false },
+  { school: '서울시립대학교', department: '컴퓨터과학부', start: '2025.03', end: '', highlight: true },
+  { school: '한국디지털미디어고등학교', department: '웹프로그래밍과', start: '2022.03', end: '2025.02', highlight: false },
 ];
 
 export interface CtfResult {

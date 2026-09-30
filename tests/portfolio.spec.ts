@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { profile, skills, projects, work, activities, results, vulnerabilities } from '../src/data/portfolio';
+import { profile, skills, education, projects, work, activities, results, vulnerabilities } from '../src/data/portfolio';
+import { iconPaths } from '../src/data/icons';
 
 const pages = [
   { path: '/', label: 'Home', heading: /^Hello, I’m\s*Seojin An$/ },
@@ -86,6 +87,16 @@ test('all provided skills and education, and the smiling portrait are present', 
   await expect(page.locator('.education-list')).toContainText('한국디지털미디어고등학교');
   await expect(page.locator('.education-list')).toContainText('2022.03 — 2025.02');
   await expect(page.locator('.education-list')).toContainText('2025.03 — 현재');
+  const markers = page.locator('.education-marker');
+  await expect(markers).toHaveCount(education.length);
+  for (let index = 0; index < education.length; index++) {
+    const marker = markers.nth(index);
+    if (education[index].highlight) await expect(marker).toHaveClass(/\bis-highlighted\b/);
+    else await expect(marker).not.toHaveClass(/\bis-highlighted\b/);
+    await expect(marker).toHaveCSS('background-color', education[index].highlight ? 'rgb(154, 117, 127)' : 'rgb(176, 160, 148)');
+    await expect(marker).toHaveCSS('box-shadow', 'none');
+    await expect(marker).toHaveCSS('animation-name', 'none');
+  }
   const image = page.locator('.portrait-image');
   await expect(image).toBeVisible();
   await expect(image).toHaveAttribute('alt', /웃고 있는/);
@@ -94,6 +105,37 @@ test('all provided skills and education, and the smiling portrait are present', 
   expect(imageBox).not.toBeNull();
   expect(imageBox!.height / imageBox!.width).toBeCloseTo(9 / 8, 2);
   expect(await image.evaluate((node) => getComputedStyle(node).objectPosition)).toBe('50% 0%');
+});
+
+test('Home project link spans the row below highlights and opens the projects section', async ({ page }, testInfo) => {
+  await page.goto('/');
+  const link = page.getByRole('link', { name: 'Projects 프로젝트 보기', exact: true });
+  await expect(link).toHaveAttribute('href', '/achievements/#projects');
+  expect(await link.locator('.projects-link-icon > svg').evaluate((svg, markup) => {
+    const expected = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    expected.innerHTML = markup;
+    return svg.innerHTML === expected.innerHTML;
+  }, iconPaths.folder)).toBe(true);
+  await expect(link).toHaveAttribute('data-reveal', 'pending');
+  await link.scrollIntoViewIfNeeded();
+  await expect(link).toHaveAttribute('data-reveal', 'visible');
+  await settleMotion(page);
+  const layout = await page.locator('.highlights-grid').evaluate((grid) => {
+    const card = grid.querySelector('.projects-link-card')!.getBoundingClientRect();
+    const highlightsBottom = Math.max(...Array.from(grid.querySelectorAll('.highlight-card'), (item) => item.getBoundingClientRect().bottom));
+    const bounds = grid.getBoundingClientRect();
+    return { gap: card.top - highlightsBottom, width: card.width, gridWidth: bounds.width, left: card.left - bounds.left };
+  });
+  expect(layout.gap).toBeGreaterThanOrEqual(10);
+  expect(layout.width).toBeCloseTo(layout.gridWidth, 0);
+  expect(layout.left).toBeCloseTo(0, 0);
+  await page.locator('.highlights-section').screenshot({ path: testInfo.outputPath('highlights.png'), animations: 'disabled', scale: 'css' });
+  await link.focus();
+  await expect(link).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/\/achievements\/#projects$/);
+  await expect(page.locator('#projects-title')).toBeInViewport();
+  await expect(page.locator('#projects .project-card')).toHaveCount(projects.length);
 });
 
 test('all supplied CTF results, CVEs and projects are included', async ({ page }) => {

@@ -151,6 +151,10 @@ test.describe('without JavaScript', () => {
       await expect(page.locator('main')).toHaveCSS('opacity', '1');
       await expect(page.locator('[data-reveal]')).toHaveCount(0);
     }
+    await page.goto('/');
+    await page.locator('.projects-link-card').click();
+    await expect(page).toHaveURL(/\/achievements\/#projects$/);
+    await expect(page.locator('#projects-title')).toBeInViewport();
     await page.goto('/achievements/');
     await page.locator('.more-results summary').click();
     await expect(page.locator('.more-results .result-row').last()).toBeVisible();

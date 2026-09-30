@@ -2,7 +2,7 @@
 const selectors = [
   '.hero-copy', '.portrait', '.page-intro', '.section-heading',
   '.home-section-content:not(.skill-groups):not(.education-list)',
-  '.skill-group', '.education-list > li', '.highlight-card',
+  '.skill-group', '.education-list > li', '.highlight-card', '.projects-link-card',
   '.result-row', '.more-results > summary', '.section-after-link',
   '.cve-card', '.project-card', '.timeline > li', '.page-note',
   '.email-contact', '.social-card', '.links-signoff',

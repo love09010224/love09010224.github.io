@@ -45,7 +45,7 @@ import { profile, skills, education, vulnerabilities } from '../data/portfolio';
   <section class="home-section" aria-labelledby="education-title">
     <SectionHeading number="03" title="Education" id="education-title" subtitle="배움의 발자취" />
     <ol class="education-list home-section-content" role="list">
-      {education.map((item) => <li><div class="education-marker" aria-hidden="true"></div><div><div class="education-school"><h3>{item.school}</h3>{!item.end && <span class="status-badge">재학 중</span>}</div><p>{item.department}</p></div><span class="date-range">{item.start} — {item.end || '현재'}</span></li>)}
+      {education.map((item) => <li><div class:list={['education-marker', { 'is-highlighted': item.highlight }]} aria-hidden="true"></div><div><div class="education-school"><h3>{item.school}</h3>{!item.end && <span class="status-badge">재학 중</span>}</div><p>{item.department}</p></div><span class="date-range">{item.start} — {item.end || '현재'}</span></li>)}
     </ol>
   </section>
 
@@ -55,6 +55,11 @@ import { profile, skills, education, vulnerabilities } from '../data/portfolio';
       <a class="highlight-card" href="/achievements/#awards"><div class="highlight-top"><span class="eyebrow">CTF · 2026</span><Icon name="flag" /></div><div class="highlight-number">7<span>th place</span></div><h3>DEF CON 34 CTF Final</h3><p>Jinddabi's <Icon name="external" size={20} /></p></a>
       <a class="highlight-card" href="/achievements/#awards"><div class="highlight-top"><span class="eyebrow">CTF · 2026</span><Icon name="flag" /></div><div class="highlight-number">2<span>nd place</span></div><h3>Codegate 2026 Final</h3><p>General · 따따 <Icon name="external" size={20} /></p></a>
       <a class="highlight-card highlight-research" href="/achievements/#cves"><div class="highlight-top"><span class="eyebrow">Security research</span><Icon name="shield" /></div><div class="highlight-number">{vulnerabilities.length.toString().padStart(2, '0')}<span>CVEs</span></div><h3>Vulnerability disclosures</h3><p>OpenProject <Icon name="external" size={20} /></p></a>
+      <a class="projects-link-card" href="/achievements/#projects">
+        <span class="projects-link-icon"><Icon name="folder" size={24} /></span>
+        <div class="projects-link-copy"><h3>Projects</h3><p>프로젝트 보기</p></div>
+        <Icon name="arrow" size={22} />
+      </a>
     </div>
   </section>
 </Layout>

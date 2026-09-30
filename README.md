@@ -13,6 +13,12 @@ npm ci
 npm run dev
 ```
 
+## Education 강조 설정
+
+`src/data/portfolio.ts`의 `education` 항목에서 `highlight: true`로 설정하면
+해당 항목의 점을 갈색으로 강조합니다. `false`로 바꾸거나 생략하면 기본색입니다.
+목록 순서와 무관하게 각 항목을 따로 설정할 수 있으며, 반투명 원은 표시하지 않습니다.
+
 ## 프로젝트 추가
 
 `src/data/portfolio.ts`의 `projects` 배열에 항목을 추가하면 됩니다.
