@@ -63,7 +63,7 @@ export const results: CtfResult[] = [
   { event: 'Hacking Camp 31st CTF', year: 2025, place: 2, team: 'K-Pop Demon Hackers', featured: true },
   
   { event: 'DiceCTF Quals', year: 2026, place: 5, team: '따따', featured: false },
-  { event: 'Hacking Camp 32st CTF', year: 2026, place: 4, team: '해킹캠프 우승하면 팀장님이 두쫀쿠 사주신대요', featured: true },
+  { event: 'Hacking Camp 32st CTF', year: 2026, place: 4, team: '해킹캠프 우승하면 팀장님이 두쫀쿠 사주신대요', featured: false },
   { event: 'Black Hat MEA CTF Quals', year: 2026, place: 1, team: '따따', featured: false },
   { event: '1st KISIA CTF Final', year: 2026, place: 10, team: 'UOS-SHA', featured: false }, 
   { event: 'SCTF', year: 2026, place: 1, team: '따따', featured: true },
@@ -71,7 +71,8 @@ export const results: CtfResult[] = [
   { event: 'TFCCTF', year: 2026, place: 10, team: 'seojin fan club', featured: false },
   { event: 'SAS CTF Quals', year: 2026, place: 5, team: '따따', featured: false },
   { event: 'CCE Final', year: 2026, place: 8, team: '이성민남친구함', division: 'General', featured: false },
-  { event: 'FAUST CTF (A&D)', year: 2026, place: 5, team: '따따', featured: false }
+  { event: 'FAUST CTF (A&D)', year: 2026, place: 5, team: '따따', featured: false },
+  { event: 'CubeCTF', year: 2026, place: 2, team:'SHASHASHAK', featured:true },
 ];
 
 export const vulnerabilities = [
