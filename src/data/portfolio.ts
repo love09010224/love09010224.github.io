@@ -72,7 +72,7 @@ export const results: CtfResult[] = [
   { event: 'SAS CTF Quals', year: 2026, place: 5, team: '따따', featured: false },
   { event: 'CCE Final', year: 2026, place: 8, team: '이성민남친구함', division: 'General', featured: false },
   { event: 'FAUST CTF (A&D)', year: 2026, place: 5, team: '따따', featured: false },
-  { event: 'CubeCTF', year: 2026, place: 2, team:'SHASHASHAK', featured:true },
+  { event: 'CubeCTF (A&D)', year: 2026, place: 2, team:'SHASHASHAK', featured:true },
 ];
 
 export const vulnerabilities = [
